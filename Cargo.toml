@@ -5,3 +5,6 @@ authors = ["Viktor Holmgren <viktor.holmgren@gmail.com>"]
 
 [lib]
 crate-type = ["staticlib"]
+
+[dependencies]
+rlibc = "*"

@@ -1,6 +1,8 @@
 #![feature(lang_items)]
 #![no_std]
 
+extern crate rlibc;
+
 #[no_mangle]
 pub extern fn rust_main() {}
 
