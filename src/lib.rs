@@ -1,5 +1,5 @@
 #![feature(lang_items)]
-#![feature(const_fn)]
+#![feature(const_fn, unique)]
 #![no_std]
 
 extern crate rlibc;
