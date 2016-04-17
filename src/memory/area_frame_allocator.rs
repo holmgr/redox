@@ -30,11 +30,11 @@ impl AreaFrameAllocator {
 		allocator
 	}
 
-	fn allocate_frame(&mut self) -> Option<Frame> {
+	pub fn allocate_frame(&mut self) -> Option<Frame> {
 		if let Some(area) = self.current_area {
 			// "clone" the frame to return it if it's free. Frame does not implement Clone,
 			// but we can construct an identical frame
-			let frame = Frame{ number: self.next_free_frame.number};
+			let frame = Frame{ number: self.next_free_frame.number };
 
 			// the last frame of the current area
 			let current_area_last_frame = {
@@ -58,7 +58,7 @@ impl AreaFrameAllocator {
 			} else {
 				// frame is unused, increment next_free_frame and return it
 				self.next_free_frame.number += 1;
-				return Some(frame)
+				return Some(frame);
 			}
 			// frame was not valid, try it again with the updated next_free_frame
 			self.allocate_frame()
@@ -67,13 +67,13 @@ impl AreaFrameAllocator {
 		}
 	}
 
-	fn deallocate_frame(&mut self, _frame: Frame) {
+	pub fn deallocate_frame(&mut self, _frame: Frame) {
 		unimplemented!()
 	}
 
 	fn choose_next_area(&mut self) {
 		self.current_area = self.areas.clone().filter(|area| {
-			let address = area.base_addr + area.length + 1;
+			let address = area.base_addr + area.length - 1;
 			Frame::containing_address(address as usize) >= self.next_free_frame
 		}).min_by_key(|area| area.base_addr);
 
