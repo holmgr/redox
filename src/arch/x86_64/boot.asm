@@ -37,35 +37,35 @@ check_multiboot:
 ; Throw error '1' if the CPU does not support CPUID command
 check_cpuid:
 	; Check if CPUID is supported by attempting to flip the ID bit (bit 21) in
-    ; the FLAGS register. If we can flip it, CPUID is available.
+	; the FLAGS register. If we can flip it, CPUID is available.
 
-    ; Copy FLAGS in to EAX via stack
-    pushfd
-    pop eax
+	; Copy FLAGS in to EAX via stack
+	pushfd
+	pop eax
 
-    ; Copy to ECX as well for comparing later on
-    mov ecx, eax
+	; Copy to ECX as well for comparing later on
+	mov ecx, eax
 
-    ; Flip the ID bit
-    xor eax, 1 << 21
+	; Flip the ID bit
+	xor eax, 1 << 21
 
-    ; Copy EAX to FLAGS via the stack
-    push eax
-    popfd
+	; Copy EAX to FLAGS via the stack
+	push eax
+	popfd
 
-    ; Copy FLAGS back to EAX (with flipped bit if CPUID supported)
-    pushfd
-    pop eax
+	; Copy FLAGS back to EAX (with flipped bit if CPUID supported)
+	pushfd
+	pop eax
 
-    ; Restore FLAGS from the old version stored in ECX (flipping the ID back
-    ; if it was flipped before)
-    push ecx
-    popfd
+	; Restore FLAGS from the old version stored in ECX (flipping the ID back
+	; if it was flipped before)
+	push ecx
+	popfd
 
-    ; Compare EAX and ECX, if equal then CPUID is not supported
-    cmp eax, ecx
-    je .no_cpuid
-    ret
+	; Compare EAX and ECX, if equal then CPUID is not supported
+	cmp eax, ecx
+	je .no_cpuid
+	ret
 
 .no_cpuid:
 	mov al, "1"
@@ -163,11 +163,11 @@ set_up_SSE:
 ; Prints 'ERR: ' and the given error code to screen and hangs
 ; parameter: error code (in ascii) in al
 error:
-    mov dword [0xb8000], 0x4f524f45
-    mov dword [0xb8004], 0x4f3a4f52
-    mov dword [0xb8008], 0x4f204f20
-    mov byte  [0xb800a], al
-    hlt
+	mov dword [0xb8000], 0x4f524f45
+	mov dword [0xb8004], 0x4f3a4f52
+	mov dword [0xb8008], 0x4f204f20
+	mov byte  [0xb800a], al
+	hlt
 
 section .bss
 align 4096
@@ -187,7 +187,7 @@ gdt64:
 .code: equ $ - gdt64
 	dq (1<<44) | (1<<47) | (1<<41) | (1<<43) | (1<<53) ; code segment
 .data: equ $ - gdt64
-    dq (1<<44) | (1<<47) | (1<<41) ; data segment
+	dq (1<<44) | (1<<47) | (1<<41) ; data segment
 .pointer:
 	dw $ - gdt64 - 1
 	dq gdt64
