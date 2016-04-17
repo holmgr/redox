@@ -1,6 +1,11 @@
 use memory::{Frame, FrameAllocator};
 use multiboot2::{MemoryAreaIter, MemoryArea};
 
+
+/*
+	A frame allocator that uses memory areas from the multiboot information structure as source.
+	The kernel and multiboot fields are used to avoid returning memory that is already in use
+*/
 pub struct AreaFrameAllocator {
 	next_free_frame: Frame,
 	current_area: Option<&'static MemoryArea>,
@@ -67,6 +72,10 @@ impl AreaFrameAllocator {
 		}
 	}
 
+	/*
+		AreaFrameAllocator contains not data structure to store free frames, so there is no
+		reasonable implementation of deallocate_frame
+	*/
 	pub fn deallocate_frame(&mut self, _frame: Frame) {
 		unimplemented!()
 	}
