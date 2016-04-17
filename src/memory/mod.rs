@@ -1,3 +1,7 @@
+pub use self::area_frame_allocator::AreaFrameAllocator;
+
+mod area_frame_allocator;
+
 
 #[derive(Debug, PartialEq, Eq, PartialOrd, Ord)]
 pub struct Frame {
