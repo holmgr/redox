@@ -1,5 +1,6 @@
 use core::ptr::Unique;
 use core::fmt::Write;
+use spin::Mutex;
 
 #[allow(dead_code)]
 #[repr(u8)]
@@ -21,6 +22,12 @@ pub enum Color {
 	Yellow     = 14,
 	White      = 15,
 }
+
+pub static WRITER: Mutex<Writer> = Mutex::new(Writer {
+    column_position: 0,
+    color_code: ColorCode::new(Color::LightGreen, Color::Black),
+    buffer: unsafe { Unique::new(0xb8000 as *mut _)},
+});
 
 #[derive(Clone, Copy)]
 struct ColorCode(u8);

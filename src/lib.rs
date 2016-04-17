@@ -3,6 +3,7 @@
 #![no_std]
 
 extern crate rlibc;
+extern crate spin;
 
 mod vga_buffer;
 
