@@ -40,6 +40,12 @@ macro_rules! print {
     });
 }
 
+pub fn clear_screen() {
+    for _ in 0..BUFFER_HEIGHT {
+        println!("");
+    }
+}
+
 #[derive(Clone, Copy)]
 struct ColorCode(u8);
 
