@@ -1,5 +1,4 @@
 use core::ptr::Unique;
-use core::fmt::Write;
 use spin::Mutex;
 
 #[allow(dead_code)]
