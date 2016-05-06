@@ -1,5 +1,6 @@
 pub use self::area_frame_allocator::AreaFrameAllocator;
 
+use self::paging::PhysicalAddress;
 mod area_frame_allocator;
 
 
@@ -18,5 +19,9 @@ pub trait FrameAllocator {
 impl Frame {
 	fn containing_address(address: usize) -> Frame {
 		Frame{ number: address / PAGE_SIZE }
+	}
+
+	fn start_address(&self) -> PhysicalAddress {
+		self.number * PAGE_SIZE;
 	}
 }

@@ -8,6 +8,7 @@ extern crate multiboot2;
 
 #[macro_use]
 mod vga_buffer;
+extern create bitflags;
 
 mod memory;
 
